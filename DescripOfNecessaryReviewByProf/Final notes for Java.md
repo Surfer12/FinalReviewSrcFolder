@@ -7,9 +7,9 @@ Final Notes for Java
 
 **Class Diagrams:**
 
-* Separation of fields and methods
-* Show return types, parameters, and variables
-* Show inheritance
+* Separation of fields and methods in class diagram by ------
+* Show return types, parameters, and variables as well as access modifiers
+* Show inheritance etc.
 
 ![alt text](FlowchartShapes.png)
 

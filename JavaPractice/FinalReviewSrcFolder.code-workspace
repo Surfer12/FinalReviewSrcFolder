@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"name": "FinalReviewSrcFolder",
+			"path": ".."
+		},
+		{
+			"path": "../../InnerClasses"
+		},
+		{
+			"path": "../../UserJavaSnippets"
+		}
+	],
+	"settings": {}
+}
