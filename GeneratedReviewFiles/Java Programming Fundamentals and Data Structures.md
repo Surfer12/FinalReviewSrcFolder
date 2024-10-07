@@ -53,7 +53,7 @@ public class HelloWorld {
 
 Java is a strongly-typed language. Common data types include:
 
-- Primitive types: int, double, boolean, char
+- Primitive types: int, double, boolean, char, byte, short, long, float
 - Reference types: String, arrays, custom objects
 
 Example:
@@ -94,6 +94,59 @@ for (int i = 0; i < 5; i++) {
     System.out.println(i);
 }
 ```
+
+switch statement:
+Here's an implementation of the provided switch-case structure using an `enum` for days of the week in Java. This example includes a simple `main` method to demonstrate how the switch-case operates based on the day provided.
+
+```java
+public class DayOfWeekExample {
+
+    // Define the enum for days of the week
+    enum Day {
+        MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY, SATURDAY, SUNDAY
+    }
+
+    public static void main(String[] args) {
+        // Example: Set the day to TUESDAY
+        Day day = Day.TUESDAY;
+
+        // Switch statement to handle different days
+        switch (day) {
+            case MONDAY:
+                System.out.println("Monday");
+                break;
+            case TUESDAY:
+                System.out.println("Tuesday");
+                break;
+            case WEDNESDAY:
+                System.out.println("Wednesday");
+                break;
+            case THURSDAY:
+                System.out.println("Thursday");
+                break;
+            case FRIDAY:
+                System.out.println("Friday");
+                break;
+            case SATURDAY:
+                System.out.println("Saturday");
+                break;
+            case SUNDAY:
+                System.out.println("Sunday");
+                break;
+            default:
+                System.out.println("Invalid day");
+                break;
+        }
+    }
+}
+```
+
+### Explanation:
+- **Enum Definition:** The `Day` enum is defined with values representing each day of the week.
+- **Main Method:** The `main` method sets a day of the week to `Day.TUESDAY` and uses a switch statement to print out the corresponding day. You can change the value of `day` to any other day to see different outputs.
+- **Switch-Case:** Each case in the switch statement corresponds to a day of the week, and it prints the name of the day. If the day does not match any defined enum values, it defaults to printing "Invalid day".
+
+This implementation can be tested by running the `DayOfWeekExample` class in a Java environment. Adjust the `day` variable to test different cases.
 
 ## 2. Object-Oriented Programming in Java
 
