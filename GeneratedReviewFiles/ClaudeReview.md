@@ -11,8 +11,31 @@ Key concepts in Java syntax and basic constructs include:
 
 a) Variables and Data Types:
 Java is a strongly-typed language, meaning every variable must have a declared type. There are two categories of data types in Java:
-- Primitive types: int, double, boolean, char, etc.
+- Primitive types: int, double, boolean, char, 
 - Reference types: String, arrays, custom objects
+
+In Java, the primitive data types and reference types are categorized based on their storage, handling, and usage within the language. Here's a detailed breakdown:
+
+### Primitive Types
+Java has eight primitive data types, which are predefined by the language and named by a keyword. These types represent raw values and are not objects.
+
+1. **byte**: The `byte` data type is an 8-bit signed two's complement integer. It has a minimum value of -128 and a maximum value of 127 (inclusive). It is used to save space in large arrays, mainly in place of integers, since a byte is four times smaller than an int.
+2. **short**: The `short` data type is a 16-bit signed two's complement integer. It has a minimum value of -32,768 and a maximum value of 32,767 (inclusive). Like byte, it is used to save space in large arrays.
+3. **int**: The `int` data type is a 32-bit signed two's complement integer, which has a minimum value of -2^31 and a maximum value of 2^31-1.
+4. **long**: The `long` data type is a 64-bit signed two's complement integer. It has a minimum value of -2^63 and a maximum value of 2^63-1.
+5. **float**: The `float` data type is a single-precision 32-bit IEEE 754 floating point. It is used mainly to save memory in large arrays of floating point numbers.
+6. **double**: The `double` data type is a double-precision 64-bit IEEE 754 floating point. It is generally the default choice for decimal values, unless there is a need to save memory.
+7. **boolean**: The `boolean` data type has only two possible values: `true` and `false`. It is used for simple flags that track true/false conditions.
+8. **char**: The `char` data type is a single 16-bit Unicode character. It has a minimum value of '\u0000' (or 0) and a maximum value of '\uffff' (or 65,535 inclusive).
+
+### Reference Types
+Reference types in Java refer to objects and arrays. They are called reference types because they refer to an object rather than directly holding the data.
+
+1. **Class Types**: These include any class as well as enums. Examples include `String`, `Integer`, `Thread`, and user-defined classes like `Car` or `Person`.
+2. **Interface Types**: Any type defined by an interface. Examples include `List`, `Map`, and `Serializable`.
+3. **Array Types**: Arrays that can hold primitives or objects. Examples include `int[]`, `double[]`, `String[]`, and `Object[]`.
+
+Each type serves a specific purpose and choosing the right type is crucial for building efficient and effective Java applications.
 
 b) Operators:
 Java supports various operators for arithmetic, comparison, logical operations, etc.
@@ -3510,3 +3533,891 @@ public class ListIntersection {
 Explanation: This solution uses a HashSet to find the intersection efficiently. It creates a set from the first list, then uses the retainAll method to keep only the elements that are also in the second list. This approach has a time complexity of O(n + m), where n and m are the sizes of the input lists. The result is converted back to an ArrayList for the final output. The method is generic, allowing it to work with lists of any type.
 
 This section on the Java Collections Framework provides a comprehensive overview of the various collection types available in Java, their implementations, and common use cases. The review questions help reinforce understanding of both the conceptual aspects and the practical use of collections in Java programming.
+Certainly! I'll continue from the Code Snippet Questions section of 6.4 Functional Interfaces and Lambda Expressions.
+
+#### Code Snippet Questions
+
+1. Analyze the following code that uses lambda expressions and functional interfaces:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+
+public class LambdaExample {
+    public static void main(String[] args) {
+        List<String> names = Arrays.asList("John", "Jane", "Adam", "Eva", "Mike");
+
+        System.out.println("Names starting with 'J':");
+        printFilteredNames(names, name -> name.startsWith("J"));
+
+        System.out.println("\nNames with length 4:");
+        printFilteredNames(names, name -> name.length() == 4);
+    }
+
+    public static void printFilteredNames(List<String> names, Predicate<String> condition) {
+        for (String name : names) {
+            if (condition.test(name)) {
+                System.out.println(name);
+            }
+        }
+    }
+}
+```
+
+Explain what this code does, focusing on the use of lambda expressions and functional interfaces.
+
+Solution:
+This code demonstrates the use of lambda expressions and the `Predicate` functional interface to filter and print names from a list based on different conditions. Here's a breakdown:
+
+1. A list of names is created using `Arrays.asList()`.
+
+2. The `printFilteredNames` method is called twice with different lambda expressions as arguments:
+   - `name -> name.startsWith("J")`: This lambda expression implements the `Predicate` interface to test if a name starts with "J".
+   - `name -> name.length() == 4`: This lambda expression tests if a name has a length of 4.
+
+3. The `printFilteredNames` method takes two parameters:
+   - A `List<String>` of names
+   - A `Predicate<String>`, which is a functional interface representing a boolean-valued function of one argument.
+
+4. Inside `printFilteredNames`, each name is tested against the provided condition (Predicate) using the `test` method. If the condition is true, the name is printed.
+
+Key points:
+- Lambda expressions provide a concise way to implement functional interfaces.
+- The `Predicate` interface is part of the `java.util.function` package and represents a boolean-valued function of one argument.
+- This example demonstrates how lambda expressions can be used to create flexible and reusable code. The same `printFilteredNames` method can be used with different filtering conditions without modifying its implementation.
+
+2. Refactor the following code to use method references instead of lambda expressions:
+
+```java
+public class MethodReferenceExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Using lambda expression
+        numbers.forEach(n -> System.out.println(n));
+
+        // Sort in descending order
+        numbers.sort((a, b) -> b.compareTo(a));
+    }
+}
+```
+
+Solution:
+Here's the refactored code using method references:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.Collections;
+
+public class MethodReferenceExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5);
+
+        // Using method reference
+        numbers.forEach(System.out::println);
+
+        // Sort in descending order using method reference
+        numbers.sort(Collections.reverseOrder());
+    }
+}
+```
+
+Explanation:
+1. `numbers.forEach(System.out::println)`:
+   - This uses a method reference to the `println` method of the `System.out` object.
+   - It's equivalent to the lambda expression `n -> System.out.println(n)`.
+
+2. `numbers.sort(Collections.reverseOrder())`:
+   - This uses a method reference to the `reverseOrder` method of the `Collections` class.
+   - It's equivalent to the lambda expression `(a, b) -> b.compareTo(a)`.
+
+Key points:
+- Method references provide an even more concise way to write certain lambda expressions.
+- They can be used when a lambda expression is doing nothing but calling an existing method.
+- There are four kinds of method references:
+  1. Reference to a static method (e.g., `Integer::parseInt`)
+  2. Reference to an instance method of a particular object (e.g., `System.out::println`)
+  3. Reference to an instance method of an arbitrary object of a particular type (e.g., `String::length`)
+  4. Reference to a constructor (e.g., `ArrayList::new`)
+
+Method references can make code more readable and expressive, especially when working with well-known methods. They are particularly useful in stream operations and when working with functional interfaces.
+
+Certainly! Let's continue with the Code Snippet Questions section on Functional Interfaces and Lambda Expressions.
+
+Code Snippet Questions (continued):
+
+7. What will be the output of the following code?
+
+```java
+interface StringProcessor {
+    String process(String input);
+}
+
+public class LambdaTest {
+    public static void main(String[] args) {
+        StringProcessor reverser = (str) -> {
+            StringBuilder sb = new StringBuilder(str);
+            return sb.reverse().toString();
+        };
+        
+        System.out.println(reverser.process("Hello"));
+    }
+}
+```
+
+Answer: The output will be "olleH". The lambda expression defines a `StringProcessor` that reverses the input string using StringBuilder.
+
+8. Explain the following code and its output:
+
+```java
+import java.util.function.Function;
+
+public class FunctionComposition {
+    public static void main(String[] args) {
+        Function<Integer, Integer> times2 = x -> x * 2;
+        Function<Integer, Integer> squared = x -> x * x;
+
+        Function<Integer, Integer> composed = times2.andThen(squared);
+        System.out.println(composed.apply(4));
+    }
+}
+```
+
+Answer: This code demonstrates function composition using the `Function` interface. It creates two functions: `times2` (multiplies by 2) and `squared` (squares the number). The `andThen` method is used to compose these functions, applying `times2` first and then `squared`. For the input 4, it first becomes 8 (4 * 2), then 64 (8 * 8). So the output is 64.
+
+9. What's wrong with the following code?
+
+```java
+@FunctionalInterface
+interface Calculator {
+    int calculate(int a, int b);
+    boolean isPositive(int number);
+}
+```
+
+Answer: This interface is incorrectly annotated as a functional interface. A functional interface must have exactly one abstract method, but this interface has two (`calculate` and `isPositive`). To fix this, either remove one method or remove the `@FunctionalInterface` annotation.
+
+10. How can you rewrite the following using a method reference?
+
+```java
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+names.forEach(name -> System.out.println(name));
+```
+
+Answer: You can rewrite it using a method reference as follows:
+
+```java
+List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
+names.forEach(System.out::println);
+```
+
+This uses a method reference to the `println` method of `System.out`.
+
+These questions cover various aspects of functional interfaces and lambda expressions, including basic syntax, function composition, common functional interfaces from the `java.util.function` package, and method references. They help reinforce understanding of these concepts and their practical applications in Java programming.
+
+Certainly! Let's continue with more Code Snippet Questions on Functional Interfaces and Lambda Expressions.
+
+11. What will be the output of the following code?
+
+```java
+import java.util.function.Predicate;
+
+public class PredicateChaining {
+    public static void main(String[] args) {
+        Predicate<String> startsWithA = s -> s.startsWith("A");
+        Predicate<String> endsWithX = s -> s.endsWith("x");
+        
+        Predicate<String> startsWithAAndEndsWithX = startsWithA.and(endsWithX);
+        
+        System.out.println(startsWithAAndEndsWithX.test("Apex"));
+        System.out.println(startsWithAAndEndsWithX.test("Ajax"));
+    }
+}
+```
+
+Answer: The output will be:
+```
+true
+false
+```
+This code demonstrates the chaining of predicates using the `and` method. The combined predicate `startsWithAAndEndsWithX` returns true only if the string starts with 'A' and ends with 'x'. "Apex" satisfies both conditions, while "Ajax" only satisfies the first condition.
+
+12. Explain the purpose and output of this code:
+
+```java
+import java.util.function.BiFunction;
+
+public class BiFunctionExample {
+    public static void main(String[] args) {
+        BiFunction<String, String, String> concat = (a, b) -> a + b;
+        BiFunction<String, String, String> concatAndUppercase = concat.andThen(String::toUpperCase);
+        
+        System.out.println(concatAndUppercase.apply("hello", "world"));
+    }
+}
+```
+
+Answer: This code demonstrates the use of `BiFunction` and function composition. The `concat` function takes two strings and concatenates them. The `concatAndUppercase` function is created by composing `concat` with the `toUpperCase` method using `andThen`. When applied to "hello" and "world", it first concatenates them and then converts the result to uppercase. The output will be:
+
+```
+HELLOWORLD
+```
+
+13. What's the issue with the following lambda expression?
+
+```java
+Runnable task = () -> {
+    return "Task completed";
+};
+```
+
+Answer: The issue is that a `Runnable` interface's `run()` method has a `void` return type, but this lambda expression is trying to return a String. To fix this, you should remove the return statement:
+
+```java
+Runnable task = () -> {
+    System.out.println("Task completed");
+};
+```
+
+14. How would you simplify the following code using a lambda expression?
+
+```java
+Collections.sort(names, new Comparator<String>() {
+    @Override
+    public int compare(String s1, String s2) {
+        return s1.length() - s2.length();
+    }
+});
+```
+
+Answer: You can simplify this using a lambda expression as follows:
+
+```java
+Collections.sort(names, (s1, s2) -> s1.length() - s2.length());
+```
+
+This lambda expression provides a concise way to define the comparison logic for sorting strings based on their length.
+
+15. What will be printed by the following code?
+
+```java
+import java.util.function.Consumer;
+
+public class ConsumerChaining {
+    public static void main(String[] args) {
+        Consumer<String> print = System.out::println;
+        Consumer<String> toUpperCase = s -> System.out.println(s.toUpperCase());
+        
+        Consumer<String> printThenUpperCase = print.andThen(toUpperCase);
+        
+        printThenUpperCase.accept("hello");
+    }
+}
+```
+
+Answer: The output will be:
+```
+hello
+HELLO
+```
+This code demonstrates consumer chaining using the `andThen` method. The `printThenUpperCase` consumer first prints the original string, then prints its uppercase version.
+
+These additional questions cover more advanced concepts of functional interfaces and lambda expressions, including predicate chaining, `BiFunction` usage, common mistakes, simplification of anonymous classes, and consumer chaining. They help to deepen understanding of these concepts and their practical applications in Java.
+
+Certainly! Let's continue with more advanced topics and examples related to Functional Interfaces and Lambda Expressions.
+
+16. Explain the concept of "effectively final" variables in the context of lambda expressions. What will the following code print?
+
+```java
+public class EffectivelyFinalExample {
+    public static void main(String[] args) {
+        String prefix = "Hello, ";
+        Runnable r = () -> {
+            System.out.println(prefix + "World!");
+            // prefix = "Hi, "; // Uncommenting this line would cause a compilation error
+        };
+        r.run();
+    }
+}
+```
+
+Answer: The code will print "Hello, World!". 
+
+An "effectively final" variable is a variable that is not explicitly declared as final, but its value is never changed after initialization. Lambda expressions can only use local variables that are final or effectively final. In this example, `prefix` is effectively final. If we were to modify `prefix` inside the lambda (by uncommenting the line), it would no longer be effectively final, and the code would not compile.
+
+17. What is the purpose of the `@FunctionalInterface` annotation? Is it mandatory?
+
+Answer: The `@FunctionalInterface` annotation is used to indicate that an interface is intended to be a functional interface. A functional interface is an interface that contains exactly one abstract method. 
+
+The annotation serves two main purposes:
+1. It communicates the designer's intent that the interface should be used as a functional interface.
+2. It causes the compiler to generate an error if the interface does not meet the requirements of a functional interface (i.e., if it has more than one abstract method).
+
+While it's not mandatory to use this annotation for functional interfaces, it's considered a good practice as it helps prevent accidental addition of abstract methods to the interface.
+
+18. Explain the following code and its output:
+
+```java
+import java.util.stream.IntStream;
+
+public class MethodReferenceTypes {
+    public static void main(String[] args) {
+        // Static method reference
+        IntStream.range(1, 5).forEach(MethodReferenceTypes::printSquare);
+        
+        // Instance method reference of a particular object
+        MethodReferenceTypes mrt = new MethodReferenceTypes();
+        IntStream.range(1, 5).forEach(mrt::printCube);
+        
+        // Instance method reference of an arbitrary object of a particular type
+        String[] names = {"Alice", "Bob", "Charlie"};
+        Arrays.sort(names, String::compareToIgnoreCase);
+        System.out.println(Arrays.toString(names));
+    }
+    
+    public static void printSquare(int n) {
+        System.out.println(n * n);
+    }
+    
+    public void printCube(int n) {
+        System.out.println(n * n * n);
+    }
+}
+```
+
+Answer: This code demonstrates three types of method references:
+
+1. Static method reference: `MethodReferenceTypes::printSquare`
+2. Instance method reference of a particular object: `mrt::printCube`
+3. Instance method reference of an arbitrary object of a particular type: `String::compareToIgnoreCase`
+
+The output will be:
+```
+1
+4
+9
+16
+1
+8
+27
+64
+[Alice, Bob, Charlie]
+```
+
+The first four lines are squares (from `printSquare`), the next four are cubes (from `printCube`), and the last line is the sorted array of names.
+
+19. What is the difference between `Predicate<T>` and `BiPredicate<T,U>`? Provide an example of each.
+
+Answer: `Predicate<T>` and `BiPredicate<T,U>` are both functional interfaces used for boolean-valued functions, but they differ in the number of arguments they accept:
+
+- `Predicate<T>` represents a function that takes one argument of type T and returns a boolean.
+- `BiPredicate<T,U>` represents a function that takes two arguments (of types T and U) and returns a boolean.
+
+Example of `Predicate<T>`:
+```java
+Predicate<String> isLongWord = s -> s.length() > 5;
+System.out.println(isLongWord.test("Hello")); // false
+System.out.println(isLongWord.test("Greetings")); // true
+```
+
+Example of `BiPredicate<T,U>`:
+```java
+BiPredicate<String, Integer> isLengthGreaterThan = (s, n) -> s.length() > n;
+System.out.println(isLengthGreaterThan.test("Hello", 3)); // true
+System.out.println(isLengthGreaterThan.test("Hi", 3)); // false
+```
+
+These examples demonstrate more advanced concepts and use cases of functional interfaces and lambda expressions, including method references, the importance of the `@FunctionalInterface` annotation, and the use of different types of functional interfaces from the `java.util.function` package.
+
+Certainly! Let's continue with more advanced topics and examples related to Functional Interfaces and Lambda Expressions.
+
+20. Explain the concept of "Closure" in the context of lambda expressions. What will the following code print?
+
+```java
+public class ClosureExample {
+    public static void main(String[] args) {
+        int multiplier = 5;
+        Function<Integer, Integer> multiplierFunction = createMultiplier(multiplier);
+        System.out.println(multiplierFunction.apply(10));
+        
+        multiplier = 10; // This doesn't affect the lambda
+        System.out.println(multiplierFunction.apply(10));
+    }
+    
+    public static Function<Integer, Integer> createMultiplier(int m) {
+        return x -> x * m;
+    }
+}
+```
+
+Answer: The output will be:
+```
+50
+50
+```
+
+A closure is a function that captures its non-local variables by the time of its creation. In this example, the lambda expression `x -> x * m` captures the value of `m` when it's created. Even though we change the value of `multiplier` in the main method, it doesn't affect the captured value in the lambda. This demonstrates that the lambda has "closed over" the value of `m`.
+
+21. What is the purpose of the `compose` method in functional interfaces? How does it differ from `andThen`?
+
+Answer: Both `compose` and `andThen` are methods used for function composition, but they differ in the order of application:
+
+- `compose` applies the function passed as an argument first, and then applies the function on which it's called.
+- `andThen` applies the function on which it's called first, and then applies the function passed as an argument.
+
+Example:
+
+```java
+Function<Integer, Integer> times2 = x -> x * 2;
+Function<Integer, Integer> plus3 = x -> x + 3;
+
+Function<Integer, Integer> composed = times2.compose(plus3);
+Function<Integer, Integer> andThened = times2.andThen(plus3);
+
+System.out.println(composed.apply(5));  // (5 + 3) * 2 = 16
+System.out.println(andThened.apply(5)); // (5 * 2) + 3 = 13
+```
+
+22. Explain the concept of "Target Typing" in lambda expressions. How does it affect the following code?
+
+```java
+public class TargetTypingExample {
+    public static void main(String[] args) {
+        // Using a custom functional interface
+        StringProcessor upperCaseProcessor = s -> s.toUpperCase();
+        System.out.println(upperCaseProcessor.process("hello"));
+
+        // Using a standard functional interface
+        Function<String, String> upperCaseFunction = s -> s.toUpperCase();
+        System.out.println(upperCaseFunction.apply("hello"));
+    }
+}
+
+@FunctionalInterface
+interface StringProcessor {
+    String process(String input);
+}
+```
+
+Answer: Target typing is the Java compiler's ability to infer the type of a lambda expression based on the context in which it's used. In this example, the same lambda expression `s -> s.toUpperCase()` is used in two different contexts:
+
+1. It's assigned to a `StringProcessor`, which has a `process` method.
+2. It's assigned to a `Function<String, String>`, which has an `apply` method.
+
+The compiler infers the appropriate type based on the target type (the type of the variable the lambda is assigned to). This allows for flexibility in using lambda expressions with different functional interfaces, as long as the method signatures are compatible.
+
+23. What is a method reference, and how does it relate to lambda expressions? Provide an example of each of the four types of method references.
+
+Answer: A method reference is a shorthand notation of a lambda expression to call a method. There are four types of method references:
+
+1. Static method reference:
+   ```java
+   Function<String, Integer> parser = Integer::parseInt;
+   ```
+
+2. Instance method reference of a particular object:
+   ```java
+   String str = "Hello";
+   Supplier<Integer> lengthSupplier = str::length;
+   ```
+
+3. Instance method reference of an arbitrary object of a particular type:
+   ```java
+   Comparator<String> comparator = String::compareToIgnoreCase;
+   ```
+
+4. Constructor reference:
+   ```java
+   Supplier<List<String>> listSupplier = ArrayList::new;
+   ```
+
+Method references provide a more readable and concise way to write certain lambda expressions, especially when the lambda is simply calling an existing method.
+
+These examples cover more advanced concepts related to lambda expressions and functional interfaces, including closures, function composition, target typing, and method references. Understanding these concepts is crucial for effectively using functional programming features in Java.
+
+Certainly! Let's cover a few more important concepts and practical applications related to functional interfaces and lambda expressions in Java:
+
+24. Parallel Processing with Streams and Lambdas:
+Java's Stream API, combined with lambda expressions, allows for easy parallel processing. Here's an example:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+
+public class ParallelStreamExample {
+    public static void main(String[] args) {
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        
+        long count = numbers.parallelStream()
+                            .filter(n -> n % 2 == 0)
+                            .count();
+        
+        System.out.println("Number of even numbers: " + count);
+    }
+}
+```
+
+This demonstrates how easily we can switch to parallel processing using `parallelStream()`, which can significantly improve performance for large datasets.
+
+25. Custom Functional Interfaces with Default Methods:
+Functional interfaces can have default methods, which can provide utility functions:
+
+```java
+@FunctionalInterface
+interface MathOperation {
+    int operate(int a, int b);
+    
+    default MathOperation compose(MathOperation after) {
+        return (a, b) -> after.operate(this.operate(a, b), 0);
+    }
+}
+
+public class CustomFunctionalInterfaceExample {
+    public static void main(String[] args) {
+        MathOperation add = (a, b) -> a + b;
+        MathOperation multiply = (a, b) -> a * b;
+        
+        MathOperation addThenMultiply = add.compose(multiply);
+        
+        System.out.println(addThenMultiply.operate(2, 3)); // (2 + 3) * 0 = 0
+    }
+}
+```
+
+This example shows how default methods can extend the functionality of functional interfaces.
+
+26. Exception Handling in Lambda Expressions:
+Handling exceptions in lambda expressions requires careful consideration. Here's an approach using a wrapper:
+
+```java
+@FunctionalInterface
+interface ThrowingFunction<T, R> {
+    R apply(T t) throws Exception;
+    
+    static <T, R> Function<T, R> unchecked(ThrowingFunction<T, R> f) {
+        return t -> {
+            try {
+                return f.apply(t);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        };
+    }
+}
+
+public class ExceptionHandlingInLambda {
+    public static void main(String[] args) {
+        Function<String, Integer> parseInteger = ThrowingFunction.unchecked(Integer::parseInt);
+        
+        try {
+            System.out.println(parseInteger.apply("123")); // Prints: 123
+            System.out.println(parseInteger.apply("abc")); // Throws RuntimeException
+        } catch (RuntimeException e) {
+            System.out.println("Parsing failed: " + e.getCause().getMessage());
+        }
+    }
+}
+```
+
+This pattern allows for checked exceptions to be handled in lambda expressions without cluttering the calling code.
+
+27. Lazy Evaluation with Suppliers:
+Suppliers can be used for lazy evaluation, which can improve performance by deferring expensive computations:
+
+```java
+import java.util.function.Supplier;
+
+public class LazyEvaluationExample {
+    public static void main(String[] args) {
+        Supplier<ExpensiveObject> expensiveObjectSupplier = () -> new ExpensiveObject();
+        
+        if (Math.random() > 0.5) {
+            System.out.println(expensiveObjectSupplier.get());
+        } else {
+            System.out.println("Didn't need the expensive object this time.");
+        }
+    }
+    
+    static class ExpensiveObject {
+        public ExpensiveObject() {
+            System.out.println("ExpensiveObject created!");
+        }
+    }
+}
+```
+
+In this example, `ExpensiveObject` is only created if it's actually needed, potentially saving resources.
+
+These additional concepts demonstrate the power and flexibility of functional programming in Java, showcasing how lambda expressions and functional interfaces can be used to write more efficient, maintainable, and expressive code.
+
+Certainly! Let's explore some more advanced concepts and practical applications of functional interfaces and lambda expressions in Java:
+
+28. Currying with Lambda Expressions:
+Currying is the technique of converting a function with multiple arguments into a sequence of functions, each with a single argument. Here's an example using lambda expressions:
+
+```java
+import java.util.function.Function;
+
+public class CurryingExample {
+    public static void main(String[] args) {
+        Function<Integer, Function<Integer, Function<Integer, Integer>>> curry = x -> y -> z -> x + y + z;
+        
+        System.out.println(curry.apply(1).apply(2).apply(3)); // Outputs: 6
+        
+        // Partial application
+        Function<Integer, Function<Integer, Integer>> add1 = curry.apply(1);
+        System.out.println(add1.apply(2).apply(3)); // Outputs: 6
+    }
+}
+```
+
+This demonstrates how currying can be used to create more specialized functions from more general ones.
+
+29. Memoization with Lambda Expressions:
+Memoization is an optimization technique used to speed up programs by storing the results of expensive function calls and returning the cached result when the same inputs occur again. Here's an example:
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
+
+public class MemoizationExample {
+    public static void main(String[] args) {
+        Function<Integer, Integer> fibonacci = memoize(n -> n <= 1 ? n : fibonacci.apply(n - 1) + fibonacci.apply(n - 2));
+        
+        System.out.println(fibonacci.apply(40)); // Fast, even for large numbers
+    }
+    
+    public static <T, R> Function<T, R> memoize(Function<T, R> function) {
+        Map<T, R> cache = new HashMap<>();
+        return input -> cache.computeIfAbsent(input, function);
+    }
+}
+```
+
+This example demonstrates how to implement memoization for a recursive Fibonacci function, significantly improving its performance for large inputs.
+
+30. Combining Predicates:
+Predicates can be combined using logical operations. Here's an example:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+
+public class PredicateCombiningExample {
+    public static void main(String[] args) {
+        List<String> words = Arrays.asList("hello", "world", "functional", "programming", "is", "cool");
+        
+        Predicate<String> isLong = s -> s.length() > 5;
+        Predicate<String> startsWithP = s -> s.startsWith("p");
+        
+        Predicate<String> isLongAndStartsWithP = isLong.and(startsWithP);
+        Predicate<String> isLongOrStartsWithP = isLong.or(startsWithP);
+        
+        System.out.println("Long words starting with 'p': " + 
+            words.stream().filter(isLongAndStartsWithP).collect(Collectors.toList()));
+        
+        System.out.println("Long words or words starting with 'p': " + 
+            words.stream().filter(isLongOrStartsWithP).collect(Collectors.toList()));
+    }
+}
+```
+
+This example shows how to combine predicates using logical AND and OR operations.
+
+31. Method References with Generics:
+Method references can be used with generic methods, which can lead to very concise and readable code:
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
+public class GenericMethodReferenceExample {
+    public static void main(String[] args) {
+        List<String> strings = Arrays.asList("1", "2", "3", "4", "5");
+        
+        List<Integer> ints = mapList(strings, Integer::parseInt);
+        System.out.println(ints); // [1, 2, 3, 4, 5]
+        
+        List<Double> doubles = mapList(strings, Double::parseDouble);
+        System.out.println(doubles); // [1.0, 2.0, 3.0, 4.0, 5.0]
+    }
+    
+    public static <T, R> List<R> mapList(List<T> list, Function<T, R> mapper) {
+        return list.stream().map(mapper).collect(Collectors.toList());
+    }
+}
+```
+
+This example demonstrates how method references can be used with generic methods to create flexible and reusable code.
+
+32. Functional Interface Composition:
+Functional interfaces can be composed to create more complex behaviors:
+
+```java
+import java.util.function.Function;
+import java.util.function.Predicate;
+
+public class FunctionalCompositionExample {
+    public static void main(String[] args) {
+        Function<String, Integer> length = String::length;
+        Predicate<Integer> isEven = n -> n % 2 == 0;
+        
+        Predicate<String> isEvenLength = isEven.compose(length);
+        
+        System.out.println(isEvenLength.test("hello")); // true
+        System.out.println(isEvenLength.test("world")); // false
+    }
+}
+```
+
+This example shows how to compose a `Function` with a `Predicate` to create a new `Predicate`.
+
+These examples further illustrate the power and flexibility of functional programming in Java, demonstrating advanced techniques and patterns that can be achieved using lambda expressions and functional interfaces.
+
+Certainly! Let's delve into some more advanced topics and practical applications of functional programming in Java:
+
+33. Partial Application with Lambda Expressions:
+Partial application is a technique where a function with multiple parameters is transformed into a sequence of functions, each taking a subset of the parameters. Here's an example:
+
+```java
+import java.util.function.BiFunction;
+import java.util.function.Function;
+
+public class PartialApplicationExample {
+    public static void main(String[] args) {
+        TriFunction<Integer, Integer, Integer, Integer> add = (a, b, c) -> a + b + c;
+        
+        BiFunction<Integer, Integer, Integer> add5 = partialApply(add, 5);
+        Function<Integer, Integer> add5And10 = partialApply(add5, 10);
+        
+        System.out.println(add5And10.apply(15)); // Outputs: 30
+    }
+    
+    @FunctionalInterface
+    interface TriFunction<T, U, V, R> {
+        R apply(T t, U u, V v);
+    }
+    
+    static <T, U, V, R> BiFunction<U, V, R> partialApply(TriFunction<T, U, V, R> f, T t) {
+        return (u, v) -> f.apply(t, u, v);
+    }
+    
+    static <T, U, R> Function<U, R> partialApply(BiFunction<T, U, R> f, T t) {
+        return u -> f.apply(t, u);
+    }
+}
+```
+
+This example demonstrates how to implement partial application, allowing for the creation of more specific functions from more general ones.
+
+34. Lazy Sequences with Streams:
+Java Streams can be used to create lazy, potentially infinite sequences:
+
+```java
+import java.util.stream.Stream;
+
+public class LazySequenceExample {
+    public static void main(String[] args) {
+        Stream<Integer> fibonacci = Stream.iterate(new int[]{0, 1}, f -> new int[]{f[1], f[0] + f[1]})
+                                          .map(f -> f[0]);
+        
+        fibonacci.limit(10)
+                 .forEach(System.out::println);
+    }
+}
+```
+
+This example generates a potentially infinite Fibonacci sequence lazily, only computing values as they are needed.
+
+35. Higher-Order Functions:
+Higher-order functions are functions that take other functions as parameters or return functions. Here's an example:
+
+```java
+import java.util.function.Function;
+
+public class HigherOrderFunctionExample {
+    public static void main(String[] args) {
+        Function<Integer, Integer> twice = x -> x * 2;
+        Function<Integer, Integer> thrice = x -> x * 3;
+        
+        Function<Integer, Integer> composedTwice = applyNTimes(twice, 2);
+        Function<Integer, Integer> composedThrice = applyNTimes(thrice, 3);
+        
+        System.out.println(composedTwice.apply(3));  // (3 * 2) * 2 = 12
+        System.out.println(composedThrice.apply(2)); // ((2 * 3) * 3) * 3 = 54
+    }
+    
+    static <T> Function<T, T> applyNTimes(Function<T, T> f, int n) {
+        return n == 0 ? Function.identity() : f.andThen(applyNTimes(f, n - 1));
+    }
+}
+```
+
+This example demonstrates a higher-order function `applyNTimes` that takes a function and returns a new function that applies the original function multiple times.
+
+36. Pattern Matching with Lambda Expressions:
+While Java doesn't have built-in pattern matching, we can simulate it using lambda expressions:
+
+```java
+import java.util.function.Function;
+import java.util.HashMap;
+import java.util.Map;
+
+public class PatternMatchingSimulation {
+    public static void main(String[] args) {
+        Object[] testCases = {42, "Hello", 3.14, new int[]{1, 2, 3}};
+        
+        for (Object testCase : testCases) {
+            System.out.println(match(testCase,
+                caseOf(Integer.class, i -> "Integer: " + i),
+                caseOf(String.class, s -> "String: " + s),
+                caseOf(Double.class, d -> "Double: " + d),
+                caseOf(int[].class, arr -> "Int Array of length: " + arr.length),
+                caseOf(Object.class, o -> "Unknown type: " + o.getClass().getSimpleName())
+            ));
+        }
+    }
+    
+    static <T> Case<T> caseOf(Class<T> cls, Function<T, String> handler) {
+        return new Case<>(cls, handler);
+    }
+    
+    static String match(Object o, Case<?>... cases) {
+        for (Case<?> c : cases) {
+            if (c.matches(o)) {
+                return c.handle(o);
+            }
+        }
+        throw new IllegalArgumentException("No matching case");
+    }
+    
+    static class Case<T> {
+        private final Class<T> cls;
+        private final Function<T, String> handler;
+        
+        Case(Class<T> cls, Function<T, String> handler) {
+            this.cls = cls;
+            this.handler = handler;
+        }
+        
+        boolean matches(Object o) {
+            return cls.isInstance(o);
+        }
+        
+        String handle(Object o) {
+            return handler.apply(cls.cast(o));
+        }
+    }
+}
+```
+
+This example simulates pattern matching by using a series of case statements implemented with lambda expressions.
+
+These examples showcase more advanced applications of functional programming concepts in Java, demonstrating how lambda expressions and functional interfaces can be used to implement complex programming patterns and techniques.
