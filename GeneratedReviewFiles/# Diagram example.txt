@@ -1,0 +1,24 @@
+# Diagram example 
+   ```java
+   for (int i = 0; i < 5; i++) {
+       if (i == 3) {
+           continue; // Only affects the loop body
+       }
+       System.out.print(i + " "); // Skipped for i == 3
+   }
+   System.out.println("Loop completed."); // This will execute after the loop finishes
+   ```
+
+      Here's an example depicted in a diagram: 
+   ```
+   +-----------------------------+
+   | for (int i = 0; i < 5; i++) |
+   | +-------------------------+ |
+   | | if (i == 3)             | |
+   | |    continue;            | | <-- Notice how the continue statement skips the print statement for i == 3
+   | |                         | | 
+   | | System.out.print(i+" ");| | <-- Skipped for i == 3
+   | +-------------------------+ |
+   |                             | <--- The loop continues to execute untill i < 5.
+   +-----------------------------+
+   System.out.println("Loop completed."); <-- Executes after the loop finishes
