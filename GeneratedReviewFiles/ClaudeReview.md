@@ -499,7 +499,9 @@ b) Short Answer Questions:
 
    Answer: The 'break' statement in a switch case is used to terminate the execution of the switch block. Without a break, the program would continue executing the next case, even if its condition doesn't match. This behavior, known as "fall-through," is sometimes desired but can often lead to unexpected results if not handled properly.
 
-c) Code Snippet Questions:
+c) Code Snippet Questions: Continue Statement
+
+
 
 1. What will be the output of the following code?
 ```java
@@ -510,6 +512,75 @@ for (int i = 0; i < 5; i++) {
     System.out.print(i + " ");
 }
 ```
+
+In Java, the `continue` statement is used to skip the current iteration of a loop (for, while, or do-while) and proceed to the next iteration. When the `continue` statement is executed, the loop does not terminate entirely; instead, it:
+
+1. Skips any code following the `continue` statement for the current iteration.
+2. Proceeds to the next iteration after evaluating the loop's condition or updating the loop variable.
+
+### Explanation with the Provided Code
+
+In the provided code snippet:
+
+```java
+for (int i = 0; i < 5; i++) {
+    if (i == 3) {
+        continue;
+    }
+    System.out.print(i + " ");
+}
+```
+
+Here's what happens step-by-step:
+
+- The loop starts with `i = 0`.
+- For `i = 0`, `1`, and `2`, the condition `i == 3` is false, so the `continue` statement is not executed. The `System.out.print(i + " ")` statement runs, printing `0`, `1`, and `2`.
+- When `i = 3`, the condition `i == 3` is true, so the `continue` statement is executed. This causes the loop to skip the `System.out.print(i + " ")` statement for `i = 3` and no `3` is printed.
+- The loop then continues with `i = 4`, where `i == 3` is false again, so `4` is printed.
+- The loop ends after `i = 4` as the next value `i = 5` does not satisfy the loop condition `i < 5`.
+
+### Additional Example Using `continue`
+
+Here's another example that uses `continue` to skip printing even numbers:
+
+```java
+for (int i = 1; i <= 10; i++) {
+    if (i % 2 == 0) {
+        continue; // Skip the rest of the loop body for even numbers
+    }
+    System.out.print(i + " "); // This line only executes for odd numbers
+}
+```
+
+**Output:**
+```
+1 3 5 7 9 
+```
+
+### Contrasting Example Using `break`
+
+To contrast with `continue`, here's an example using `break`, which exits the loop entirely when a condition is met:
+
+```java
+for (int i = 1; i <= 10; i++) {
+    if (i == 6) {
+        break; // Exit the loop entirely when i equals 6
+    }
+    System.out.print(i + " "); // This line executes until i is less than 6
+}
+```
+
+**Output:**
+```
+1 2 3 4 5 
+```
+
+In this example, as soon as `i` equals `6`, the `break` statement is executed, which stops the loop entirely, and no further numbers are printed.
+
+### Summary
+
+- **`continue`** is used to skip the current iteration and continue with the next iteration of the loop.
+- **`break`** is used to exit the loop entirely, not executing any more iterations.
 
 Solution: 0 1 2 4
 
@@ -533,7 +604,60 @@ for (int i = 1; i <= 10; i++) {
 
 Explanation: We added an if statement inside the loop to check if each number is even. The condition `i % 2 == 0` checks if the number is divisible by 2 with no remainder, which is true for even numbers. Only when this condition is met, the number is printed.
 
-Section 2: Object-Oriented Programming in Java
+#### Continue Statement within the loop body
+
+1. **Within the Loop Body**: If there is an additional statement after the `continue` statement within the same iteration of the loop, it will be skipped. For example, if there's a check like `if (i % 2 == 1)` after the `continue` statement within the loop body, this check will not be executed for the iteration where the `continue` is triggered.
+
+   Here's an example to illustrate this:
+   ```java
+   for (int i = 0; i < 5; i++) {
+       if (i == 3) {
+           continue; // Skips the remaining part of the loop body for i == 3
+       }
+       // This check will be skipped when i == 3 as the continue statement is executed 
+       if (i % 2 == 1) {
+           System.out.println(i + " is odd.");
+       }
+       System.out.print(i + " "); // This will also be skipped for i == 3
+   }
+   ```
+
+   #### a) Output: 0 1 2 4 Loop completed.
+
+   ##### b) Explanation: In the above code, when `i` equals 3, the `continue` statement is executed, so both the check `if (i % 2 == 1)` and the `System.out.print(i + " ")` are skipped for that iteration.
+
+2. **Outside the Loop Body**: Any code that is outside the loop body will not be affected by the `continue` statement. The `continue` only affects the execution flow within the current iteration of the loop it resides in.
+
+   Here's an example:
+   ```java
+   for (int i = 0; i < 5; i++) {
+       if (i == 3) {
+           continue; // Only affects the loop body
+       }
+       System.out.print(i + " "); // Skipped for i == 3
+   }
+   System.out.println("Loop completed."); // This will execute after the loop finishes
+   ```
+
+      Here's an example depicted in a diagram: 
+   ```
+   +-----------------------------+
+   | for (int i = 0; i < 5; i++) |
+   | +-------------------------+ |
+   | | if (i == 3)             | |
+   | |    continue;            | | <-- Notice how the continue statement skips the print statement for i == 3
+   | |                         | | 
+   | | System.out.print(i+" ");| | <-- Skipped for i == 3
+   | +-------------------------+ |
+   |                             | <--- The loop continues to execute untill i < 5.
+   +-----------------------------+
+   System.out.println("Loop completed."); <-- Executes after the loop finishes
+
+   #### a) Output: 0 1 2 4 Loop completed.
+
+   ##### b) Explanation: The "Loop completed." message is printed after the loop has finished executing all its iterations, regardless of any `continue` statements within the loop.
+
+### Section 2: Object-Oriented Programming in Java
 
 1. Conceptual Explanation:
 
