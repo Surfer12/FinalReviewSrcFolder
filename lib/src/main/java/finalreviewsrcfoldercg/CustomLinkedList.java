@@ -1,4 +1,4 @@
-package JavaPracticeCode;
+package finalreviewsrcfoldercg;
 
 /**
  * A custom implementation of a doubly linked list that allows for efficient

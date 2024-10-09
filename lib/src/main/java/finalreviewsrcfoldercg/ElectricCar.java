@@ -1,4 +1,4 @@
-package JavaPracticeCode;
+package finalreviewsrcfoldercg;
 
 public class ElectricCar extends CarOOP implements electricPowered {
     private int batteryCapacity;

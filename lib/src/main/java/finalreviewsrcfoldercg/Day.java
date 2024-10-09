@@ -1,4 +1,4 @@
-package JavaPracticeCode;
+package finalreviewsrcfoldercg;
 
 public enum Day {
     // Enum constants

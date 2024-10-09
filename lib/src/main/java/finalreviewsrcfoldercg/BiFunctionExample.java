@@ -1,3 +1,5 @@
+package finalreviewsrcfoldercg;
+
 import java.util.function.BiFunction;
 
 public class BiFunctionExample {

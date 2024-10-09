@@ -1,4 +1,4 @@
-package JavaPracticeCode;
+package finalreviewsrcfoldercg;
 
 public class Recursion {
     public static int factorial(int n) {

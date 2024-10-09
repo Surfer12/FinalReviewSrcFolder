@@ -1,4 +1,4 @@
-package JavaPracticeCode;
+package finalreviewsrcfoldercg;
 
 public interface electricPowered {
     void chargeBattery();
