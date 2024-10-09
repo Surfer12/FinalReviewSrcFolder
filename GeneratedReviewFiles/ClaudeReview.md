@@ -830,7 +830,6 @@ public class Box<T> {
         return content;
     }
 }
-
 ```
 [Box.java](E:\cis232recoupledExternalE\FinalReviewSrcFolder\JavaPracticeCode\Box.java)
 
