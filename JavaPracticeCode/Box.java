@@ -1,7 +1,4 @@
-/* # Generics
-
-## Box
- */
+package JavaPracticeCode;
 
 public class Box<T> {
     private T content;
